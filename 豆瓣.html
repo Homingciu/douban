@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				text-decoration: none;
+				font: 12px Helvetica,Arial,sans-serif;
+				line-height: 1.62;
+			}
+			a{
+				color: #333;
+			}
+			body{
+				height: 2000px;
+			}
+			.clear{
+				clear: both;
+			}
+			/*db-global-nav*/
+			.db-global-nav{
+				height: 28px;
+				color: #d5d5d5;
+				background: #545652;
+			}
+			.db-global-nav .nav-left{
+				float: left;
+			}
+			.db-global-nav .nav-right{
+				float: right;
+			}
+			.db-global-nav a{
+				font-size: 12px;
+				height: 28px;
+				line-height: 28px;
+				padding: 0 12px;
+				color: #d5d5d5;
+			}
+			.db-global-nav .nav-left .nav-list li{
+				float: left;
+				display: inline-block;
+			}
+
+			.db-global-nav .nav-left li img{
+				height: 19px;
+				position: absolute;
+				left: 464px;
+				top: 0;
+			}
+
+			/*db-nav-sns*/
+			.db-nav-sns{
+				background-color: #edf4ed;
+				margin-bottom: 40px;
+				padding: 10px 0 5px;
+				position: relative;
+			}
+			.db-nav-sns .db-nav-sns-wrapper{
+				width: 950px;
+				margin: 0 auto;
+			}
+
+			.db-nav-sns .db-nav-sns-search{
+				/*position: absolute;
+				right: 0;*/
+				float: right;
+				margin-top: 15px;
+				position: relative;	
+			}
+
+			.db-nav-sns .db-logo{
+				width: 184px;
+				height: 57px;
+				background: url(https://img3.doubanio.com/f/shire/8308f83ca66946299fc80efb1f10ea21f99ec2a5/pics/nav/lg_main_a11_1.png) no-repeat 0 12px;
+				background-position: 0 10px;
+				float: left;
+			}
+			.db-nav-sns .db-logo a{
+				width: 100%;
+				height: 100%;
+				display: block;
+				line-height: 100em;
+				overflow: hidden;
+			}
+			.db-nav-sns .db-nav-sns-list{
+				float: left;
+				margin-top: 15px;
+				margin-left: 13px;
+			}
+			.db-nav-sns .db-nav-sns-list li{
+				float: left;
+				margin-right: 20px;
+			}
+			.db-nav-sns .db-nav-sns-list a:hover{
+				background: #072;
+				color: #fff;
+			}
+			.db-nav-sns .db-nav-sns-list li a{
+				font-size: 15px;
+				color: #072;
+			}
+			.input-box{
+				position: static;
+			}
+			.search-input{
+				width: 30px;
+				height: 27px;
+				background: url(https://img3.doubanio.com/f/shire/f71f15922ebd7c0ff0ea0e7a25577529efd8981a/pics/icon/bn_srh_1.png) no-repeat 50% 50%;
+				font-size: 0;
+				background-color: #fff;	
+				position: absolute;
+				left: auto;
+				right: 1px;
+				top: 1px;
+				border: 0;
+				cursor: pointer;	
+			}
+			.word-input{
+				width: 258px;
+				height: 28px;
+				background-color: #fff;
+				padding-left: 10px;
+				padding-right: 30px;
+				text-align: left;
+				border: 1px solid #e1e9e1;
+			}
+
+			.fontNormalColor{
+				color: #999;
+			}
+
+
+
+			/*wrapper*/
+			.wrapper{
+				width: 950px;
+				margin: 0 auto;
+				/*border: 1px solid black;*/
+				/*background: yellow;*/
+				height: 100px;
+			}
+			.wrapper .article{
+				float: left;
+				width: 590px;
+		/*		background: red;*/
+			}
+			.wrapper .article-search{
+				background-color: #f7f7f8;
+				margin-bottom: 28px;
+				position: relative;
+				padding: 7px;
+			}
+			.wrapper .article-search #search-content{
+				width: 98%;
+				padding-left: 6px;
+				height: 30px;
+				line-height: 30px;
+				text-align: left;
+				border: 0;
+				
+			}
+			.wrapper .article-search .magnifier{
+				font-size: 0;
+				background: url(https://img3.doubanio.com/f/shire/f71f15922ebd7c0ff0ea0e7a25577529efd8981a/pics/icon/bn_srh_1.png) no-repeat 50% 50%;
+				width: 30px;
+				height: 27px;
+				border: 0;
+				position: absolute;
+				right: 15px;
+				top: 9px;
+				cursor: pointer;
+			}
+			.wrapper .search-list{
+				width: 65px;
+				float: left;
+				margin-right: 35px;
+			}
+
+			.wrapper .search-list li{
+				width: 65px;
+				font-size: 12px;
+				margin-bottom: 12px;
+				line-height: 1.2;
+				display: inline-block;
+				text-align: center;
+			}
+			.wrapper .search-list a{
+				width: 100%;
+				height: 100%;
+				display: block;
+				border-radius: 5px;
+				color: #111;
+				line-height: 1.2;
+				font-size: 12px;
+				padding: 3px 0;
+			}
+			.wrapper .search-list a:hover{
+				background-color: #7fc06e;
+				color: #fff;
+			}
+			
+			.wrapper .search-list .active{
+				background-color: #7fc06e;
+				color: #fff;
+			}
+			.wrapper .search-result .star{
+				display: inline-block;
+				width: 55px;
+				height: 11px;
+				margin-right: 3px;
+				overflow: hidden;
+				background: url(https://img3.doubanio.com/f/shire/0147ca9efddcac80050854590d26bee587b008df/pics/rating_icons/ic_rating_s@2x.png) no-repeat;
+				background: set(url(/f/shire/b8f4c3672ef81106701071831e22422a745d3b74/pics/rating_icons/ic_rating_s.png) 1x, url(/f/shire/0147ca9efddcac80050854590d26bee587b008df/pics/rating_icons/ic_rating_s@2x.png) 2x) no-repeat;
+				background-size: 54px;	
+			}
+			/*.search-result{
+				float: left;
+				width: 100%;
+			}
+
+			.search-result::after{
+				content: "";
+				display: block;
+				clear: both;
+			}*/
+			.search-result .result-list{
+				float: right;
+				width: 490px;
+			}
+			.search-result .result-list::after{
+				content: "";
+				display: block;
+				clear: both;
+			}
+			.search-result h2{
+				font-size: 15px;
+				margin-bottom: 10px;
+			}
+			.search-result h3{
+				margin-bottom: 10px;
+			}
+			.search-result h3 span,
+			.search-result h3 a{
+				font-size: 14px;
+				color: #666699;
+			}
+			.search-result h3 a:hover{
+				background: #37a;
+				color: #fff;
+			}
+			.search-result h3 span{
+				margin-right: 10px;
+			}
+
+			.result-list .result{
+				width: 100%;
+				padding-top: 20px;
+				margin-bottom: 20px;
+				position: relative;
+				border-top: 1px dashed #ccc;
+			}
+			
+			.result-list .result .pic{
+				float: right;
+				width: 62px;
+				text-align: right;
+				position: relative;
+				height: 50px;
+
+			}
+			.result-list .result .pic img{
+				max-width: 48px;
+			}
+			.result-list .result .rating-info .average{
+				color: #e09015;
+				padding: 0 3px;
+			}
+			.result-list .result .rating-info .numRaters{
+				padding: 0 5px;
+			}
+			.result-list .result .rating-info .tags{
+				margin-left: 10px;
+			}
+
+			.result-list .result .content p{
+				color: #999;
+				line-height: 1.5;
+				width: 430px;
+				margin-top: 3px;
+			}
+
+			.result-list .result-more{
+				background: #f8f8f8;
+				margin-top: 20px;
+			}
+			.result-list .result-more a{
+				display: block;
+				line-height: 32px;
+				text-align: center;
+				color: #111;
+			}
+			.result-list .result-more a:hover{
+				background: #f4f4f4;
+			}
+
+			#content::after{
+				content: "";
+				display: block;
+				clear: both;
+			}
+			.wrapper .footer{
+				width: 100%;
+				overflow: hidden;
+				padding: 6px 0;
+				color: #999;
+				border: 1px dashed #ddd;
+				margin-top: 40px;
+				float: left;
+			}
+			.wrapper .footer .footer-right{
+				float: right;
+			}
+			.wrapper .footer .footer-right a{
+				color: #37a;
+				margin-right: 10px; 
+			}
+			.wrapper .footer .footer-right a:hover{
+				color: #fff;
+				background: #37a;
+			}
+
+			/*aside*/
+			.wrapper .aside{
+				float: right;
+				width: 310px;
+				margin-top: 50px;
+			}
+			.aside .title{
+				border-bottom: 1px solid #f0f0f0;
+				padding-bottom: 10px;
+			}
+			.aside .title .db{
+				font-size: 16px;
+    			color: #45618c;
+			}
+			.aside .title span a{
+				color: #333;
+			}
+			.aside .title span a:hover{
+				background: #37a;
+				color: #fff;	
+			}
+			.aside .advertisment_1::after{
+				content: "";
+				display: block;
+				clear: both;
+			}
+			.aside .advertisment_1 li{
+				float: left;
+				width: 46%;
+				padding-top: 15px;
+    			margin-left: 3%;
+			}
+			.aside .advertisment_1 .word{
+				display: block;
+			    overflow: hidden;
+   				text-overflow: ellipsis;
+   				white-space: nowrap;
+			}
+			.aside .advertisment_1 .word:hover{
+				color: #4891c8;
+			}
+			.aside .advertisment_1 img{
+				width: 143px;
+			}
+			.advertisment_1 .price-wrapper{
+				text-align: center;
+			}
+			.advertisment_1 .price-wrapper .price,
+			.advertisment_1 .price-wrapper del{
+				color: #45618c;
+			}
+			.advertisment_1 .price-wrapper .price::before{
+				content: "¥";
+				margin-right: 2px;
+			}
+			.advertisment_1 .price-wrapper del{
+				text-decoration: line-through;
+			}
+
+			.aside .advertisment_2{
+				margin-top: 50px;
+			}
+
+
+			/*back-to-top*/
+			.back-to-top{
+				position: fixed;
+				right: 150px;
+				bottom: 50px;
+				display: none;
+			}
+			.back-to-top a{
+				color: #37a;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="db-global-nav">
+			<div class="nav-left">
+				<ul class="nav-list">
+					<li>
+						<a href="#">豆瓣</a>
+					</li>
+					<li>
+						<a href="#">读书</a>
+					</li>
+					<li>
+						<a href="#">电影</a>
+					</li>
+					<li>
+						<a href="#">音乐</a>
+					</li>
+					<li>
+						<a href="#">同城</a>
+					</li>
+					<li>
+						<a href="#">小组</a>
+					</li>
+					<li>
+						<a href="#">阅读</a>
+					</li>
+					<li>
+						<a href="#">FM</a>
+					</li>
+					<li>
+						<a href="#">东西</a>
+					</li>
+					<li>
+						<a href="">市集
+							<img src="https://img3.doubanio.com/f/shire/49361dd62c006b17aca974760c2f63daad7d0a8b/pics/nav/new-market-tip.png">
+						</a>
+					</li>
+					<li>
+						<a href="" style="margin-left: 20px;">更多</a>
+					</li>
+				</ul>
+			</div>
+			<div class="nav-right">
+				<a href="">下载豆瓣客户端</a>
+				<a href="">登录</a>
+				<a href="">注册</a>
+			</div>
+		</div>
+
+		<div class="db-nav-sns">
+			<div class="db-nav-sns-wrapper">
+
+				<div class="db-nav-sns-search">
+					<div class="input-box">
+						<input class="word-input fontNormalColor" type="text" value="搜索你感兴趣的内容和人..." onfocus="if(this.value=='搜索你感兴趣的内容和人...'){this.value='';this.className='word-input'}" onblur="if(this.value==''){this.value='搜索你感兴趣的内容和人...';this.className='word-input fontNormalColor'}">
+						<input class="search-input" type="submit" value="搜索">
+					</div>
+				</div>
+
+				<div class="db-logo">
+					<a href="">豆瓣社区</a>
+				</div>
+
+				<div class="db-nav-sns-list">
+					<ul>
+						<li>
+							<a href="#">首页</a>
+						</li>
+						<li>
+							<a href="#">浏览发现</a>
+						</li>
+						<li>
+							<a href="#">移动应用</a>
+						</li>
+						<li>
+							<a href="#">游戏</a>
+						</li>
+						<li>
+							<a href="#">线上活动</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<div class="wrapper">
+			<div id="content" class="content">
+				<div class="article"> <!-- 左边 -->
+					<div class="article-search">
+						<input id="search-content" class="fontNormalColor" type="text" value="喜欢你" onfocus="if(this.value=='搜索你感兴趣的内容和人...'){this.value='';this.className='fontColor'}" onblur="if(this.value==''){this.value='搜索你感兴趣的内容和人...';this.className='fontNormalColor'}">
+						<input class="magnifier" type="submit" value="搜索" style="font-size: 0;">
+					</div>
+
+					<div class="search-list">
+						<ul style="position: static; top: 5px;width: 65px;">
+							<li>
+								<a href="#">全部</a></li>
+							<li>
+								<a href="#">图片</a></li>
+							<li>
+								<a href="#">成员</a></li>
+							<li>
+								<a href="#">小组</a></li>
+							<li>
+								<a href="#">小站</a>
+							</li>
+							<li>
+								<a href="#">书籍</a>
+							</li>
+							<li>
+								<a href="#">电影</a>
+							</li>
+							<li>
+								<a class="active" href="#">音乐</a>
+							</li>
+							<li>
+								<a href="#">游戏</a>
+							</li>
+							<li>
+								<a href="#">条目</a>
+							</li>
+							<li>
+								<a href="#">日记</a>
+							</li>
+							<li>
+								<a href="#">市集</a>
+							</li>
+							<li>
+								<a href="#">舞台剧</a>
+							</li>
+							<li>
+								<a href="#">同城活动</a>
+							</li>
+							<li>
+								<a href="#">地点</a>
+							</li>
+							<li>
+								<a href="#">移动应用</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="search-result">
+						<h2></h2>
+						<div class="result-list">
+							<!-- <div class="result">
+								<div class="pic">
+									<a href="#">
+										<img src="">
+									</a>
+								</div>
+								<div class="content">
+									<div class="title">
+										<h3>
+											<span>
+											</span>
+											<a href="#"></a>
+										</h3>
+									</div>
+									<p></p>
+								</div>
+							</div> -->
+						</div>
+					</div>		
+				</div>
+
+
+				<div class="aside">
+					<div class="title">
+						<span class="db">豆瓣市集的推荐</span>
+						<span style="float: right;color: #666699;">
+							<a href="#">>更多</a>
+						</span>
+					</div>
+					<div class="advertisment_1">
+						<ul>
+							<li>
+								<a href="#">
+									<img src="https://img3.doubanio.com/view/dianpu_product_item/medium/public/p224063.jpg">
+								</a>
+								<a class="word" href="#">黑凤梨喜欢你表白抱枕</a>
+								<div class="price-wrapper">
+									<i class="price">79.00</i>
+									<del>89.00</del>
+								</div>	
+							</li>
+							<li>
+								<a href="#">
+									<img src="https://img3.doubanio.com/view/dianpu_product_item/medium/public/p468482.jpg">
+								</a>
+								<a class="word" href="#">唐小姐的酒馆（红色定制款） </a>
+								<div class="price-wrapper">
+									<i class="price">289.00</i>
+									<del>312.00</del>
+								</div>	
+							</li>
+						</ul>
+					</div>
+					<div class="advertisment_2">
+						<a href="#">
+							<img src="https://img3.doubanio.com/view/dale-online/dale_ad/public/cb19a7c4f9fab08.jpg">
+						</a>
+					</div>
+					<div class="mod">
+						<div style="font-size: 16px;margin-top: 20px;color: #072;line-height: 150%;">豆瓣还没有这张唱片，我来添加......</div>
+						<div style="margin-top: 10px">
+							<a href="#" style="color: #37a;">> 添加唱片</a>
+						</div>
+						<div style="margin-top: 10px">
+							<a href="#" style="color: #37a;">> 添加艺术家</a>
+						</div>
+					</div>
+					<div class="addMore" style="margin-top: 50px">
+						<a href="#" style="color:#bbb	">> 对结果不满意？让我们知道</a>
+					</div>
+				</div>  <!-- 右边 -->
+
+				<div class="footer">
+					<span>© 2005－2016 douban.com, all rights reserved 北京豆网科技有限公司</span>
+					<span class="footer-right">
+						<a href="#">关于豆瓣</a>
+						<a href="#">在豆瓣工作</a>
+						<a href="#">联系我们</a>
+						<a href="#">免责声明</a>
+						<a href="#">帮助中心</a>
+						<a href="#">移动应用</a>
+						<a href="#">豆瓣广告</a>
+					</span>
+				</div>
+			</div>
+
+			<div class="back-to-top">
+				<a href="#">↑回顶部</a>
+			</div>	
+		</div>
+			
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript">
+			//左边的选项列表
+			//1.点击事件
+			$(".search-list a").on("click", function (e) {
+				$(".search-list a").removeClass("active");
+				$(e.target).addClass("active");
+			})
+			//滑动事件
+			$(window).on("scroll", function () {
+				if($(document).scrollTop() >= 200) {
+					$(".search-list ul").css("position", "fixed");
+				}else{
+					$(".search-list ul").css("position", "static");
+				}
+			})
+			var myCount = 20;
+			// $.ajax({
+			// 	url: "https://api.douban.com/v2/music/search",
+			// 	type : "GET",
+			// 	data: {q: $("#search-content").val(), count: 20},
+			// 	dataType : "jsonp",
+			// 	success : addDom,
+			// 	error : function() {
+			// 		alert("Error");
+			// 	}
+			// })
+			Ajax();
+			function addDom(data) {
+				
+				ajaxData = data;
+				var html = "";
+				var len = ajaxData.musics.length;
+				//添加html结构
+				for(var i = 0; i < len; i ++) {
+					html += "<div class='result'><div class='pic'><a><img></a></div><div class='content'><div class='title'><h3><span></span><a></a></h3><div class='rating-info'><span class='star'></span><span class='average'></span><span class='numRaters'></span><span class='tags'></span></div></div><p></p></div></div>"
+				}
+				html += "<div class='result-more'><a href='#'>显示更多</a></div>";
+				$(".result-list").empty();
+				$(".result-list").html(html);
+
+				//添加内容
+				for(var i = 0; i < len; i ++) {
+					$(".pic a")
+								.eq(i)
+								.attr("href", ajaxData.musics[i].alt)
+					$(".pic img")
+								.eq(i)
+								.attr("src", ajaxData.musics[i].image)
+					
+					$(".title h3 span")
+										.eq(i)
+										.text("[" + $(".active").text() + "]")		
+					$(".title a")
+								.eq(i)
+								.text(ajaxData.musics[i].title)
+								.attr("href", ajaxData.musics[i].alt)
+					
+					$(".rating-info .average")
+											.eq(i)
+											.text(ajaxData.musics[i].rating.average)
+
+
+					var position = "";
+					switch(Math.ceil(ajaxData.musics[i].rating.average)) {
+						case 10:
+							position = "0 0";
+							break;
+						case 9:
+							position = "0 -11px";
+							break;
+						case 8:
+							position = "0 -22px";
+							break;
+						case 7:
+							position = "0 -33px";
+							break;
+						case 6:
+							position = "0 -44px";
+							break;
+						case 5:
+							position = "0 -55px";
+							break;
+						case 4:
+							position = "0 -66px";
+							break;
+						case 3:
+							position = "0 -77px";
+							break;
+						case 2:
+							position = "0 -88px";
+							break;
+						case 1:
+							position = "0 -99px";
+							break;
+						case 0:
+							position = "0 -110px";
+							break;										
+					}							
+					$('.rating-info .star')
+											.eq(i)
+											.css("background-position", position)		
+
+
+
+
+
+					$(".rating-info .numRaters")
+												.eq(i)
+												.text("(" + ajaxData.musics[i].rating.numRaters + "评价)")
+											
+					$(".rating-info .tags")
+										.eq(i)
+										.text((ajaxData.musics[i].author?ajaxData.musics[i].author[0].name:""))	
+
+					// addTag();
+					var key = false;																		
+					for(var j = 0; j < ajaxData.musics[i].tags.length; j++) {
+						if(ajaxData.musics[i].tags[j].name == "流行") {
+							$(".rating-info .tags")
+													.eq(i)
+													.text((ajaxData.musics[i].author?ajaxData.musics[i].author[0].name:"")  + "/流行" + (ajaxData.musics[i].attrs.pubdate ? "/" + ajaxData.musics[i].attrs.pubdate[0].substring(0, 4) : ""))
+							key = true;						
+						}
+					}
+					if(!key){
+						$(".rating-info .tags")
+											.eq(i)
+											.text((ajaxData.musics[i].author?ajaxData.musics[i].author[0].name:"") + (ajaxData.musics[i].attrs.pubdate ? "/" + ajaxData.musics[i].attrs.pubdate[0].substring(0, 4) : ""))
+					}
+
+					
+					$("p")
+							.text("啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊")	
+
+				}
+				$("h2")
+							.text("相关" + $(".active").text() + ":")
+				
+				$(".result")
+								.eq(0)
+								.css({border: 0,padding: 0})
+
+				if(myCount >= ajaxData.total) {
+					$(".result-more").css("display", "none");
+				}				
+
+				$(".result-more")
+									.on("click", function () {
+										myCount += 20;
+										// $.ajax({
+										// 	url: "https://api.douban.com/v2/music/search",
+										// 	type : "GET",
+										// 	data: {q: $("#search-content").val(), count: myCount},
+										// 	dataType : "jsonp",
+										// 	success : addDom,
+										// 	error : function() {
+										// 		alert("Error");
+										// 	}
+										// })
+										Ajax();
+										return false;
+									})
+
+			}
+			
+
+			$(".magnifier").on("click", function () {
+				Ajax();
+			})
+
+			function Ajax() {
+				$.ajax({
+					url: "https://api.douban.com/v2/music/search",
+					type : "GET",
+					data: {q: $("#search-content").val(), count: myCount},
+					dataType : "jsonp",
+					success : addDom,
+					error : function() {
+						alert("Error");
+					}
+				})
+			}
+
+			$(window).on("scroll", function () {
+				if($(document).scrollTop() > 1000) {
+					$(".back-to-top").css("display", "block")
+				}else {
+					$(".back-to-top").css("display", "none")
+				}
+			})
+		</script>
+	</body>
+</html>	
